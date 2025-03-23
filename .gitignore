@@ -1,0 +1,37 @@
+# python cache
+__pycache__/
+*.py[cod]
+*.pid
+.cache
+
+# mac os
+.DS_Store
+
+# IDE
+/.idea/
+/.vscode/
+
+# python venv
+/venv/
+/.venv/
+
+# local folders
+/export/
+/source_data/
+/save_points/
+/scripts_local/
+
+# zip
+unzipped_xml
+*.zip
+
+# django
+settings_local.py
+# db.sqlite3
+django.mo
+django_cache
+celerybeat-schedule
+
+# logs
+logfile
+*.log
