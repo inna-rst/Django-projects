@@ -1,0 +1,15 @@
+{% extends "notes/index.html" %}
+
+{% block title %}Заметки{% endblock %}
+
+{% block content %}
+    <h1>Заметки</h1>
+     <ul>
+        {% for note in notes %}
+            <li class="note">
+                <h2>{{ note.title }}</h2>
+                <p>{{ note.content }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
