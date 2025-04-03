@@ -11,6 +11,10 @@ h1 {
     font-weight: bold;
     margin-bottom: 20px;
 }
+
+.content{
+    text-align: left;
+}
 ul {
     list-style-type: none;
     padding: 0;
@@ -43,3 +47,16 @@ ul {
     color: #555;
 }
 
+form{
+    text-align: left;
+}
+
+.wrapper_form{
+    text-align: center;
+    width: 400px;
+    margin: 10px auto;
+}
+
+.submit-btn{
+    display:block;
+}

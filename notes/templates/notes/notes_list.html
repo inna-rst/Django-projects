@@ -2,13 +2,47 @@
 
 {% block title %}Заметки{% endblock %}
 
+
 {% block content %}
     <h1>Заметки</h1>
+    <div class="wrapper_form">
+        <form id="form-filter" action="{% url 'notes:index'%}" method="get">
+            {{ form }}
+            <input class="submit-btn" type="submit" value="Submit">
+        </form>
+    </div>
+
+
+    {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
      <ul>
         {% for note in notes %}
             <li class="note">
+                 {% if note.reminder %}
+                    <span class="badge bg-info reminder-badge">
+                        Напоминание: {{ note.reminder|date:"d.m.Y H:i" }}
+                    </span>
+                {% endif %}
                 <h2>{{ note.title }}</h2>
-                <p>{{ note.text }}</p>
+                <p>{{ note.text|truncatewords:30 }}</p>
+                <small class="text-muted">
+                    {% if note.category %}
+                        <span class="badge bg-secondary">{{ note.category.title }}</span>
+                    {% else %}
+                        <span class="badge bg-light text-dark">Без категории</span>
+                    {% endif %}
+                </small>
+                <div>
+                     <a href="{% url 'notes:note_detail' note.pk %}" class="btn btn-sm btn-outline-primary">Подробнее</a>
+               </div>
             </li>
         {% endfor %}
     </ul>

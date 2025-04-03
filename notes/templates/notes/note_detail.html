@@ -1,0 +1,30 @@
+{% extends "notes/index.html" %}
+
+{% block title %}Заметка {{note.title}}{% endblock %}
+
+{% block content %}
+  <h1>{{ note.title }}</h1>
+
+    {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'notes:note_update' note.pk %}" class="btn btn-primary">Редактировать</a>
+        <a href="{% url 'notes:note_delete' note.pk %}" class="btn btn-danger">Удалить</a>
+    </div>
+
+  <div class="note-content">
+    {{ note.text }}
+  </div>
+
+  <div class="actions">
+    <a href="{% url 'notes:index' %}">Вернуться к списку заметок</a>
+  </div>
+{% endblock %}
