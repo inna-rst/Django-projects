@@ -6,7 +6,8 @@ class NotesForm(forms.ModelForm):
     category = forms.ModelChoiceField(
         queryset=Categories.objects.all(),
         required=False,  # Разрешаем пустое значение
-        widget=forms.Select(attrs={"class": "form-control"})
+        widget=forms.Select(attrs={'class': 'form-select'}),
+        label = "Выберите категорию"
     )
 
     class Meta:
@@ -14,10 +15,11 @@ class NotesForm(forms.ModelForm):
         fields = ['title', 'text', 'category', 'reminder']
 
         widgets = {
-            'title': forms.TextInput(attrs={'placeholder': 'Name of notes'}),
-            'text': forms.Textarea(attrs={'placeholder': 'Text of notes'}),
-            'reminder': forms.DateTimeInput(attrs={'type': 'datetime-local'})
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название заметки'}),
+            'text': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Текст заметки'}),
+            'reminder': forms.DateTimeInput(attrs={'class': 'form-control','type': 'datetime-local'})
         }
+
 
 class NoteSearchForm(forms.Form):
     search_query = forms.CharField(
@@ -37,4 +39,4 @@ class NoteSearchForm(forms.Form):
     reminder_filter=forms.DateTimeField(
         required=False,
         label="Напоминания",
-        widget=forms.DateTimeInput(attrs={"type": "datetime-local"}))
+        widget=forms.DateTimeInput(attrs={'class': 'form-control',"type": "datetime-local"}))

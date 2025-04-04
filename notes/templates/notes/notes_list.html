@@ -1,49 +1,82 @@
 {% extends "notes/index.html" %}
 
-{% block title %}Заметки{% endblock %}
+{% block title %}Список заметок{% endblock %}
 
 
 {% block content %}
-    <h1>Заметки</h1>
-    <div class="wrapper_form">
-        <form id="form-filter" action="{% url 'notes:index'%}" method="get">
-            {{ form }}
-            <input class="submit-btn" type="submit" value="Submit">
-        </form>
+    <h1 class="mb-4">Заметки</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Поиск и фильтры</h5>
+        </div>
+        <div class="card-body">
+            <form class="row g-3" action="{% url 'notes:index'%}" method="get" >
+                <div class="col-md-4">
+                    {{ form.search_query.label_tag }}
+                    {{ form.search_query }}
+                </div>
+                <div class="col-md-3">
+                    {{ form.category.label_tag }}
+                    {{ form.category }}
+                </div>
+                <div class="col-md-3">
+                    {{ form.reminder_filter.label_tag }}
+                    {{ form.reminder_filter }}
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Применить</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-
-    {% if messages %}
-        <div class="messages mb-4">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <div>
+            <p>Найдено заметок: {{ notes|length }}</p>
         </div>
-    {% endif %}
+        <a href="{% url 'notes:add_note' %}" class="btn btn-gradient">
+            <i class="bi bi-plus-circle"></i> Новая заметка
+        </a>
+    </div>
 
-     <ul>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for note in notes %}
-            <li class="note">
-                 {% if note.reminder %}
-                    <span class="badge bg-info reminder-badge">
-                        Напоминание: {{ note.reminder|date:"d.m.Y H:i" }}
-                    </span>
-                {% endif %}
-                <h2>{{ note.title }}</h2>
-                <p>{{ note.text|truncatewords:30 }}</p>
-                <small class="text-muted">
-                    {% if note.category %}
-                        <span class="badge bg-secondary">{{ note.category.title }}</span>
-                    {% else %}
-                        <span class="badge bg-light text-dark">Без категории</span>
-                    {% endif %}
-                </small>
-                <div>
-                     <a href="{% url 'notes:note_detail' note.pk %}" class="btn btn-sm btn-outline-primary">Подробнее</a>
-               </div>
-            </li>
+            <div class="col">
+                <div class="card note-card h-100 position-relative">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">{{ note.title }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ note.text|truncatewords:30 }}</p>
+
+                         {% if note.reminder %}
+                            <span class="badge bg-info reminder-badge">
+                                Напоминание: {{ note.reminder|date:"d.m.Y H:i" }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            {% if note.category %}
+                                <span class="badge bg-secondary">{{ note.category.title }}</span>
+                            {% else %}
+                                <span class="badge bg-light text-dark">Без категории</span>
+                            {% endif %}
+                        </small>
+                        <div>
+                            <a href="{% url 'notes:note_detail' note.pk %}" class="btn btn-sm btn-blue-custom btn-outline-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Заметок не найдено.<br/><a href="{% url 'notes:add_note' %}" class="alert-link">Создать новую?</a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+
 {% endblock %}

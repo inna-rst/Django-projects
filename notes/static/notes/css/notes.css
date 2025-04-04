@@ -1,0 +1,121 @@
+/*body {*/
+/*    font-family: Arial, sans-serif;*/
+/*    background-color: #f4f4f9;*/
+/*    color: #333;*/
+/*    text-align: center;*/
+/*    padding: 20px;*/
+/*    font-size:12px;*/
+/*}*/
+/*h1 {*/
+/*    font-size: 32px;*/
+/*    font-weight: bold;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.content{*/
+/*    text-align: left;*/
+/*}*/
+/*ul {*/
+/*    list-style-type: none;*/
+/*    padding: 0;*/
+/*}*/
+/*.note {*/
+/*    background: linear-gradient(135deg, #ffffff, #f0f0f0);*/
+/*    border-radius: 12px;*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*    padding: 20px;*/
+/*    margin: 15px auto;*/
+/*    max-width: 600px;*/
+/*    text-align: left;*/
+/*    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+/*}*/
+
+/*.note:hover {*/
+/*    transform: translateY(-5px);*/
+/*    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);*/
+/*}*/
+
+/*.note h2 {*/
+/*    font-size: 22px;*/
+/*    font-weight: bold;*/
+/*    color: #333;*/
+/*    margin-bottom: 8px;*/
+/*}*/
+
+/*.note p {*/
+/*    font-size: 16px;*/
+/*    color: #555;*/
+/*}*/
+
+/*form{*/
+/*    text-align: left;*/
+/*}*/
+
+/*.wrapper_form{*/
+/*    text-align: center;*/
+/*    width: 400px;*/
+/*    margin: 10px auto;*/
+/*}*/
+
+/*.submit-btn{*/
+/*    display:block;*/
+/*}*/
+
+body {
+    padding-top: 20px;
+    background-color: #f8f9fa;
+}
+
+.card-body{
+    position: relative;
+    padding-bottom: 20px;
+}
+.note-card {
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.reminder-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.note-category {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.bg-info{
+    background-color: #70C2E9 !important;
+}
+
+.btn-primary{
+    background-color: #4C82EF !important;
+}
+
+.btn-primary:hover{
+    background-color: #225ed8 !important;
+}
+
+.btn-gradient {
+    background: linear-gradient(90deg, #4CAF50, #2E7D32);
+    border: none;
+    color: white; /* Белый текст для контраста */
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-gradient:hover {
+    color: white;
+    filter: brightness(1.1); /* Лёгкое осветление при наведении */
+}
+

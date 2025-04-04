@@ -6,14 +6,52 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
-    <link href="{% static "notes.css" %}" rel="stylesheet">
+    <title>{% block title %}Приложение заметок{% endblock %}</title>
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "notes/css/notes.css" %}" rel="stylesheet">
 </head>
 <body>
-    <div id="content">
 
-        {% block content %}
-        {% endblock %}
+    <div class="container">
+        <header class="mb-4">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'notes:index' %}">Все заметки</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.resolver_match.url_name == 'add_note' %}active{% endif %}" href="{% url 'notes:add_note' %}">Создать заметку</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        {% if messages %}
+            <div class="messages mb-4">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p>&copy; 2025 Приложение заметок</p>
+        </footer>
     </div>
+    <script  src="{% static "js/bootstrap.bundle.min.js" %}"></script>
 </body>
 </html>
