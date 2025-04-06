@@ -91,7 +91,6 @@ def index(request):
 
         reminder_filter = form.cleaned_data.get('reminder_filter')
         if reminder_filter:
-            notes_list = notes_list.filter(reminder__date=reminder_filter)
-
+            notes_list = notes_list.filter(reminder__date=reminder_filter.date())
 
     return render(request, "notes/notes_list.html", {"notes": notes_list, "form": form})

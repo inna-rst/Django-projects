@@ -119,3 +119,7 @@ body {
     filter: brightness(1.1); /* Лёгкое осветление при наведении */
 }
 
+.card-footer .bg-light{
+    color:#006a25ff !important;
+    background-color: #e7fbef !important;
+}

@@ -17,7 +17,7 @@ class NotesForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название заметки'}),
             'text': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Текст заметки'}),
-            'reminder': forms.DateTimeInput(attrs={'class': 'form-control','type': 'datetime-local'})
+            'reminder': forms.DateTimeInput(attrs={'class': 'form-control','type': 'date'})
         }
 
 
@@ -39,4 +39,4 @@ class NoteSearchForm(forms.Form):
     reminder_filter=forms.DateTimeField(
         required=False,
         label="Напоминания",
-        widget=forms.DateTimeInput(attrs={'class': 'form-control',"type": "datetime-local"}))
+        widget=forms.DateTimeInput(attrs={'class': 'form-control',"type": "date"}))
