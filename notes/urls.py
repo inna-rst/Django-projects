@@ -3,6 +3,8 @@ from django.urls import path
 from . import views
 
 
+
+
 app_name = 'notes'
 urlpatterns = [
     path("", views.index, name="index"),
@@ -10,4 +12,7 @@ urlpatterns = [
     path('note/<int:pk>/update/', views.NoteUpdateView.as_view(), name='note_update'),
     path('note/<int:pk>/delete/', views.NoteDeleteView.as_view(), name='note_delete'),
     path("add-note/", views.AddNotesView.as_view(), name="add_note"),
+    path('toggle-view/', views.toggle_view, name='toggle_view'),
 ]
+
+

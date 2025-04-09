@@ -31,13 +31,27 @@
         </div>
     </div>
 
+    <!-- Переключатель между личными и групповыми заметками -->
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <a href="{% url 'notes:toggle_view' %}" class="btn btn-outline-primary">
+                Переключить на {% if view_type == 'personal' %}групповые{% else %}личные{% endif %} заметки
+            </a>
+        </div>
+         {% if user.is_authenticated %}
+            {% if perms.notes.can_add_notes or can_group_add_notes %}
+                <div>
+                    <a href="{% url 'notes:add_note' %}" class="btn btn-gradient">
+                        <i class="bi bi-plus-circle"></i>  Добавить заметку
+                    </a>
+                </div>
+            {% endif %}
+         {% endif %}
+    </div>
     <div class="mb-3 d-flex justify-content-between align-items-center">
         <div>
             <p>Найдено заметок: {{ notes|length }}</p>
         </div>
-        <a href="{% url 'notes:add_note' %}" class="btn btn-gradient">
-            <i class="bi bi-plus-circle"></i> Новая заметка
-        </a>
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -47,14 +61,19 @@
                     <div class="card-header">
                         <h5 class="card-title mb-0">{{ note.title }}</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <p class="card-text">{{ note.text|truncatewords:30 }}</p>
-
-                         {% if note.reminder %}
-                            <span class="badge bg-info reminder-badge">
-                                Напоминание: {{ note.reminder|date:"d.m.Y H:i" }}
-                            </span>
-                        {% endif %}
+                        <div class="card-text group-info mt-auto">
+                            {% if note.group %}
+                                <span class="badge bg-primary note-group">Группа: {{ note.group.name }}</span>
+                            {% endif %}
+                            <br/>
+                            {% if note.reminder %}
+                                <span class="badge bg-info reminder-badge">
+                                    Напоминание: {{ note.reminder|date:"d.m.Y H:i" }}
+                                </span>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <small class="text-muted">
@@ -73,7 +92,12 @@
         {% empty %}
             <div class="col-12">
                 <div class="alert alert-info">
-                    Заметок не найдено.<br/><a href="{% url 'notes:add_note' %}" class="alert-link">Создать новую?</a>
+                    {% if view_type == 'personal' %}
+                        У вас пока нет личных заметок.
+                    {% else %}
+                        Нет доступных групповых заметок.
+                    {% endif %}
+                    <br/><a href="{% url 'notes:add_note' %}" class="alert-link">Создать новую?</a>
                 </div>
             </div>
         {% endfor %}

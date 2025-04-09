@@ -1,0 +1,71 @@
+{% extends "notes/index.html" %}
+
+{% load widget_tweaks %}
+
+{% block title %}Авторизоваться{% endblock %}
+
+{% block content %}
+  <div class="card mb-4">
+    <div class="card-header">
+        <h2 class="mb-0">Авторизация</h2>
+    </div>
+      <div class="card-body">
+          {% if form.errors %}
+              <div class="alert alert-danger">
+                  Неверное имя пользователя или пароль. Попробуйте снова.
+              </div>
+          {% endif %}
+
+          {% if next %}
+            {% if user.is_authenticated %}
+               <div class="alert alert-danger">
+                У вашей учётной записи нет доступа к этой странице.
+              </div>
+            {% else %}
+              <div class="alert">
+               Пожалуйста, войдите в систему, чтобы просмотреть эту страницу.
+              </div>
+            {% endif %}
+          {% endif %}
+
+{#          {% if form.non_field_errors %}#}
+{#              <div class="alert alert-danger">#}
+{#                  {% for error in form.non_field_errors %}#}
+{#                      <p>{{ error }}</p>#}
+{#                  {% endfor %}#}
+{#              </div>#}
+{#          {% endif %}#}
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.username.label_tag }}
+                {% render_field form.username class="form-control" %}
+{#                {% if form.username.errors %}#}
+{#                    <div class="text-danger">#}
+{#                      {% for error in form.username.errors %}#}
+{#                        {{ error }}#}
+{#                      {% endfor %}#}
+{#                    </div>#}
+{#                {% endif %}#}
+            </div>
+            <div class="mb-3">
+                {{ form.password.label_tag }}
+                {% render_field form.password class="form-control" %}
+
+{#                {% if form.password.errors %}#}
+{#                    <div class="text-danger">#}
+{#                      {% for error in form.password.errors %}#}
+{#                        {{ error }}#}
+{#                      {% endfor %}#}
+{#                    </div>#}
+{#                {% endif %}#}
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <input type="hidden" name="next" value="{{ next }}">
+          </form>
+      </div>
+
+      {# Assumes you set up the password_reset view in your URLconf #}
+{#      <p><a href="{% url 'password_reset' %}">Lost password?</a></p>#}
+  </div>
+{% endblock %}

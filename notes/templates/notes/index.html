@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Приложение заметок{% endblock %}</title>
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'icons/bootstrap-icons/font/bootstrap-icons.css' %}">
     <link href="{% static "notes/css/notes.css" %}" rel="stylesheet">
 </head>
 <body>
@@ -16,18 +17,43 @@
         <header class="mb-4">
             <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
                 <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
                                 <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'notes:index' %}">Все заметки</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if request.resolver_match.url_name == 'add_note' %}active{% endif %}" href="{% url 'notes:add_note' %}">Создать заметку</a>
-                            </li>
+                             {% if user.is_authenticated %}
+                                {% if perms.notes.can_add_notes or can_group_add_notes %}
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if request.resolver_match.url_name == 'add_note' %}active{% endif %}" href="{% url 'notes:add_note' %}">Создать заметку</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
                         </ul>
+
+                       <ul class="navbar-nav mb-2 mb-lg-0">
+
+                           {% if user.is_authenticated %}
+                               <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        User: {{ user.get_username }}
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                        <li>
+                                            <form id="logout-form" method="post" action="{% url 'logout' %}" class="dropdown-item p-0">
+                                                {% csrf_token %}
+                                                <button type="submit" id="btn-logout" class="btn btn-link dropdown-item">Logout</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                               </li>
+                           {% else %}
+                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+                           {% endif %}
+                       </ul>
                     </div>
                 </div>
             </nav>

@@ -3,7 +3,7 @@
 {% block title %}Добавить заметку{% endblock %}
 
 {% block content %}
-        <div class="card mb-4">
+    <div class="card mb-4">
         <div class="card-header">
             <h2 class="mb-0">{{ title }}</h2>
         </div>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         {{ form.category.label_tag }}
                         {{ form.category }}
                         {% if form.category.errors %}
@@ -51,7 +51,19 @@
                         {% endif %}
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        {{ form.group.label_tag }}
+                        {{ form.group }}
+                        {% if form.group.errors %}
+                            <div class="text-danger">
+                                {% for error in form.group.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4">
                         {{ form.reminder.label_tag }}
                         {{ form.reminder }}
                         {% if form.reminder.errors %}

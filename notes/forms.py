@@ -12,13 +12,27 @@ class NotesForm(forms.ModelForm):
 
     class Meta:
         model = Notes
-        fields = ['title', 'text', 'category', 'reminder']
+        fields = ['title', 'text', 'category', 'reminder', 'group']
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название заметки'}),
             'text': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Текст заметки'}),
             'reminder': forms.DateTimeInput(attrs={'class': 'form-control','type': 'date'})
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(NotesForm, self).__init__(*args, **kwargs)
+
+        # Если пользователь передан, ограничиваем выбор групп только теми,
+        # в которых состоит пользователь
+        if user:
+            self.fields['group'].queryset = user.note_groups.all()
+            self.fields['group'].empty_label = "Личная заметка (без группы)"
+
+        # Добавляем CSS-классы и другие атрибуты для полей
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
 
 
 class NoteSearchForm(forms.Form):

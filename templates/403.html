@@ -1,0 +1,42 @@
+{% extends "notes/index.html" %}
+{% block title %}Доступ запрещен{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Доступ запрещен (403)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-exclamation-triangle fa-4x text-danger"></i>
+                    </div>
+                    <h5>У вас нет прав для доступа к этой странице</h5>
+                    
+                    {% if exception %}
+                        <div class="alert alert-warning mt-3">
+                            {{ exception }}
+                        </div>
+                    {% endif %}
+                    
+                    <p class="mt-4">
+                        Возможные причины:
+                    </p>
+                    <ul>
+                        <li>Вы пытаетесь редактировать или удалить заметку, которая вам не принадлежит</li>
+                        <li>Вы пытаетесь получить доступ к ресурсу, требующему особых привилегий</li>
+                    </ul>
+                    
+                    <div class="mt-4 text-center">
+                        <a href="{% url 'notes:index' %}" class="btn btn-primary">
+                            <i class="fas fa-home"></i> Вернуться к списку заметок
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

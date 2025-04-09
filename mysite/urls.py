@@ -20,5 +20,12 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path("notes/", include("notes.urls")),
 ]
+
+# handler404 = 'mysite.views.custom_404'
+# Определите обработчики ошибок
+handler403 = 'notes.views.permission_denied_view'
+handler404 = 'notes.views.page_not_found_view'
+handler500 = 'notes.views.server_error_view'

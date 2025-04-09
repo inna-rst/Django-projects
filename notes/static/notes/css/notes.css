@@ -66,10 +66,6 @@ body {
     background-color: #f8f9fa;
 }
 
-.card-body{
-    position: relative;
-    padding-bottom: 20px;
-}
 .note-card {
     background: linear-gradient(135deg, #ffffff, #f0f0f0);
     border-radius: 12px;
@@ -80,11 +76,6 @@ body {
 .note-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-.reminder-badge {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
 }
 
 .note-category {
@@ -107,11 +98,11 @@ body {
 
 .btn-gradient {
     background: linear-gradient(90deg, #4CAF50, #2E7D32);
-    border: none;
+    border: 1px solid #2E7D32;
     color: white; /* Белый текст для контраста */
-    padding: 10px 20px;
     border-radius: 8px;
     transition: 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
 .btn-gradient:hover {
@@ -122,4 +113,30 @@ body {
 .card-footer .bg-light{
     color:#006a25ff !important;
     background-color: #e7fbef !important;
+}
+
+#btn-logout{
+    display: inline; padding: 0;
+}
+
+#logout-form {
+    display: inline;
+}
+#logout-form button {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.group-info{
+    position: relative;
+    text-align: right;
+}
+
+.note-group{
+    margin-bottom:10px;
+    background: rgba(13, 202, 240, 0.76) !important;
+}
+
+.reminder-badge {
 }
