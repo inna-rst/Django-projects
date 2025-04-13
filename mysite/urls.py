@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,3 +30,6 @@ urlpatterns = [
 handler403 = 'notes.views.permission_denied_view'
 handler404 = 'notes.views.page_not_found_view'
 handler500 = 'notes.views.server_error_view'
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -19,6 +19,11 @@ from django.http import HttpResponseForbidden
 from .models import Notes
 from .forms import NotesForm, NoteSearchForm
 
+from asgiref.sync import sync_to_async
+from django.views.decorators.csrf import csrf_exempt
+import json
+import asyncio
+
 # class Notes:
 #     def __init__(self, note_id):
 #         self.id = note_id
@@ -215,3 +220,5 @@ def page_not_found_view(request, exception, template_name='404.html'):
 def server_error_view(request, template_name='500.html'):
     """Обработчик ошибки 500 - Ошибка сервера"""
     return render(request, template_name, status=500)
+
+
